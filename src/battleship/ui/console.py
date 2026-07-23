@@ -1,6 +1,7 @@
-from battleship.core.game import Game
 from battleship.core.board import Board
+from battleship.core.game import Game
 from battleship.core.ship import Ship
+
 
 class ConsoleUI:
     def __init__(self, game: Game):
@@ -26,10 +27,14 @@ class ConsoleUI:
             for col in range(board.size):
                 cell = (row, col)
                 if cell in board.ship_locations:
-                    line.append("S")
+                    ship: Ship = board.ship_locations[cell]
+                    line.append(self.ship_to_str(ship, cell))
                 else:
                     line.append("~")
 
             output.append(" ".join(line))
 
         return "\n".join(output)
+
+    def ship_to_str(self, ship: Ship, cell: tuple[int, int]) -> str:
+        return "S"
