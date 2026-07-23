@@ -33,8 +33,9 @@ class ConsoleUI:
 
             for col in range(board.size):
                 cell = (row, col)
-                if cell in board.ship_locations:
-                    ship: Ship = board.ship_locations[cell]
+                ship = board.get_cell(cell)
+
+                if ship:
                     line.append(self.ship_to_str(ship, cell))
                 else:
                     line.append("~")

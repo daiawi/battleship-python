@@ -9,3 +9,6 @@ class Board:
     def place_ship(self, ship: Ship):
         for cell in ship.get_extent():
             self.ship_locations[cell] = ship
+
+    def get_cell(self, cell: tuple[int, int]) -> Ship | None:
+        return self.ship_locations.get(cell)
