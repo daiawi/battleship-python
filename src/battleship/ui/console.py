@@ -9,7 +9,7 @@ class ConsoleUI:
         self.game = game
         self.letters = [chr(x + 65) for x in range(self.game.size)]
         self.numbers = [str(x) for x in range(self.game.size)]
-        self.input_handler = CellInput(self.game, self.letters, self.numbers)
+        self.input_handler = CellInput(self.letters, self.numbers)
 
     def run(self):
         while not self.game.is_over():

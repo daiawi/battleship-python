@@ -1,15 +1,11 @@
-from battleship.core.game import Game
 
 
 class CellInput:
-    def __init__(self, game: Game, letters, numbers) -> None:
-        self.game = game
+    def __init__(self, letters: list[str], numbers: list[str]) -> None:
         self.letters = letters
         self.numbers = numbers
 
-    def take_input(self) -> tuple[int, int]:
-            print(self.game.instruction)
-    
+    def take_input(self) -> tuple[int, int]:    
             while True:
                 cell_code = input("Input Cell: ")
     
@@ -31,7 +27,7 @@ class CellInput:
 
     def parse_input_cell(self, cell_code: str) -> tuple[int, int]:
         let_str = cell_code[0].upper()
-        num_str = cell_code[1]
+        num_str = cell_code[1:]
 
         row = self.letters.index(let_str)
         col = self.numbers.index(num_str)
