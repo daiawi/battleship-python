@@ -6,7 +6,8 @@ class Board:
         self.size = size
         self.ship_locations = {}
 
-    def place_ship(self, ship: Ship):
+    def place_ship(self, ship: Ship, position: tuple[int, int]):
+        ship.update_center(position)
         for cell in ship.get_extent():
             self.ship_locations[cell] = ship
 

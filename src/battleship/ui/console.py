@@ -14,8 +14,8 @@ class ConsoleUI:
     def run(self):
         while not self.game.is_over():
             self.display()
-            self.input_handler.take_input()
-            break
+            position = self.input_handler.take_input()
+            self.game.handle_input(position)
 
     def display(self):
         print(" " * 6 + "Battleship")
