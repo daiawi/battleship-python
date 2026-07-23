@@ -16,7 +16,9 @@ class CellInput:
     
             return self.parse_input_cell(cell_code) 
 
-    def validate_input_cell(self, cell_code: str) -> bool:
+    def validate_input_cell(self, input_cell: str) -> bool:
+        cell_code = input_cell.strip()
+
         if not cell_code:
             return False
 
@@ -25,7 +27,9 @@ class CellInput:
         
         return letter_valid and number_valid
 
-    def parse_input_cell(self, cell_code: str) -> tuple[int, int]:
+    def parse_input_cell(self, input_cell: str) -> tuple[int, int]:
+        cell_code = input_cell.strip()
+        
         let_str = cell_code[0].upper()
         num_str = cell_code[1:]
 

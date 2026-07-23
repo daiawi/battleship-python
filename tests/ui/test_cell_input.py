@@ -12,6 +12,8 @@ def cell_input_10():
 @pytest.mark.parametrize("cell, expected", [
     pytest.param("B1", True, id="upper-normal"),
     pytest.param("b1", True, id="lower-normal"),
+    pytest.param(" B1", True, id="leading-space"),
+    pytest.param("B1 ", True, id="trailing-space"),
     pytest.param("A10", False, id="number-exceeds"),
     pytest.param("K1", False, id="letter-exceeds"),
     pytest.param("K10", False, id="both-exceed"),
