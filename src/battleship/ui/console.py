@@ -13,16 +13,19 @@ class ConsoleUI:
             break
 
     def display(self):
-        print("Battleship")
+        print(" " * 6 + "Battleship")
+        print("=" * 22)
 
         board = self.game.get_board()
         print(self.board_to_str(board))
+        print("=" * 22)
         
     def board_to_str(self, board: Board) -> str:
         output = []
+        letters = [chr(x + 65) for x in range(board.size)]
 
         for row in range(board.size):
-            line = []
+            line = [letters[row]]
 
             for col in range(board.size):
                 cell = (row, col)
@@ -33,6 +36,10 @@ class ConsoleUI:
                     line.append("~")
 
             output.append(" ".join(line))
+
+        col_nums = [str(x) for x in range(board.size)]
+        col_nums.insert(0," ")
+        output.append(" ".join(col_nums))
 
         return "\n".join(output)
 
