@@ -4,11 +4,8 @@ class Ship:
         self.size = size
         self.hits = set()
 
-    def update_center(self, center: tuple[int, int]):
-        self.center = center
-
-    def get_extent(self) -> list[tuple[int, int]]:
-        row, col = self.center
+    def get_extent(self, center: tuple[int, int]) -> list[tuple[int, int]]:
+        row, col = center
         start = col - (self.size // 2)
 
         covered_cells = []
