@@ -21,3 +21,6 @@ class Fleet:
 
     def is_fully_deployed(self) -> bool:
         return self.i == self.num_ships
+
+    def is_fully_destroyed(self) -> bool:
+        return all(ship.is_sunk() for ship in self.ships)

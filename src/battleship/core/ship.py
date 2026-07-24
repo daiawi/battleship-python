@@ -27,3 +27,6 @@ class Ship:
             covered_cells.append(position)
 
         return covered_cells
+
+    def is_sunk(self):
+        return len(self.hits) == self.size

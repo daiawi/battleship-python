@@ -13,6 +13,10 @@ class Board:
     def ready(self):
         return self.fleet.is_fully_deployed()
 
+    @property
+    def defeated(self):
+        return self.fleet.is_fully_destroyed()
+
     def place_instruction(self) -> str:
         ship = self.fleet.get_current_ship()        
         return f"Place your {ship.name} ({ship.size})"

@@ -22,8 +22,10 @@ class ConsoleUI:
 
             self.game.handle_input(data)
             self.game.update()
+        self.display()
 
     def display(self):
+        print("\n")
         print(" " * 6 + "Battleship")
         print("=" * 22)
 

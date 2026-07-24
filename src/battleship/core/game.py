@@ -45,6 +45,8 @@ class Game:
     def update_state(self):
         if self.state == GameState.Setup and self.board.ready:
             self.state = GameState.Play
+        elif self.state == GameState.Play and self.board.defeated:
+            self.state = GameState.Done
 
     def update_instruction(self):
         match self.state:
@@ -53,3 +55,6 @@ class Game:
 
             case GameState.Play:
                 self.instruction = "Select a cell to fire upon!"
+
+            case GameState.Done:
+                self.instruction = "Fleet has been sunk!"
