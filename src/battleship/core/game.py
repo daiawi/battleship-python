@@ -6,6 +6,7 @@ from battleship.core.board import Board
 class GameState(Enum):
     Setup = auto()
     Play = auto()
+    Done = auto()
 
 
 class Game:
@@ -15,8 +16,14 @@ class Game:
         self.instruction = "Place Ships!"
         self.state = GameState.Setup
 
-    def is_over(self):
-        return False
+    def is_setting_up(self):
+        return self.state == GameState.Setup
+
+    def is_playing(self):
+        return self.state == GameState.Play
+
+    def is_done(self):
+        return self.state == GameState.Done
 
     def get_board(self):
         return self.board

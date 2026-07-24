@@ -12,7 +12,7 @@ class ConsoleUI:
         self.input_handler = CellInput(self.letters, self.numbers)
 
     def run(self):
-        while not self.game.is_over():
+        while not self.game.is_done():
             self.display()
             position = self.input_handler.take_input()
             self.game.handle_input(position)
