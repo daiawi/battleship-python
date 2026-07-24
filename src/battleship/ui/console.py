@@ -31,6 +31,8 @@ class ConsoleUI:
         print(self.board_to_str(board))
         print("=" * 22)
 
+        print(self.game.get_instruction())
+
     def board_to_str(self, board: Board) -> str:
         output = []
 

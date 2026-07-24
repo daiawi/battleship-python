@@ -13,6 +13,12 @@ class Board:
     def ready(self):
         return self.fleet.is_fully_deployed()
 
+    def place_instruction(self) -> str:
+        ship = self.fleet.get_current_ship()
+        info = ship.get_info()
+        
+        return f"Place your {info.name} ({info.length})"
+
     def place_ship(self, position: Placement):
         ship = self.fleet.get_current_ship()
 

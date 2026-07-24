@@ -1,5 +1,12 @@
+from dataclasses import dataclass
+
 from battleship.core.actions import Orientation, Placement
 
+
+@dataclass(frozen=True)
+class ShipInfo:
+    name: str
+    length: int
 
 class Ship:
     def __init__(self, name: str, size: int):
@@ -24,3 +31,6 @@ class Ship:
             covered_cells.append(position)
 
         return covered_cells
+
+    def get_info(self):
+        return ShipInfo(name=self.name, length=self.size)

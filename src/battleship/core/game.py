@@ -14,7 +14,7 @@ class Game:
     def __init__(self):
         self.size = 10
         self.board = Board(self.size)
-        self.instruction = "Place Ships!"
+        self.instruction = self.board.place_instruction()
         self.state = GameState.Setup
 
     def is_setting_up(self):
@@ -29,10 +29,25 @@ class Game:
     def get_board(self):
         return self.board
 
+    def get_instruction(self):
+        return self.instruction
+
     def handle_input(self, data: Shot | Placement):
         if self.state == GameState.Setup and isinstance(data, Placement):
             self.board.place_ship(data)
 
     def update(self):
+        self.update_state()
+        self.update_instruction()
+
+    def update_state(self):
         if self.state == GameState.Setup and self.board.ready:
             self.state = GameState.Play
+
+    def update_instruction(self):
+        match self.state:
+            case GameState.Setup:
+                self.instruction = self.board.place_instruction()
+
+            case GameState.Play:
+                self.instruction = "Select a cell to fire upon!"
