@@ -8,6 +8,10 @@ class Board:
         self.fleet = Fleet()
         self.ship_locations = {}
 
+    @property
+    def ready(self):
+        return self.fleet.is_fully_deployed()
+
     def place_ship(self, position: tuple[int, int]):
         ship = self.fleet.get_current_ship()
 
@@ -16,7 +20,7 @@ class Board:
 
         for cell in ship.get_extent(position):
             self.ship_locations[cell] = ship
-            
+
         self.fleet.next_ship()
 
     def valid_placement(self, ship: Ship, position: tuple[int, int]) -> bool:

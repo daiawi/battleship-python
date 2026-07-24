@@ -16,6 +16,7 @@ class ConsoleUI:
             self.display()
             position = self.input_handler.take_input()
             self.game.handle_input(position)
+            self.game.update()
 
     def display(self):
         print(" " * 6 + "Battleship")

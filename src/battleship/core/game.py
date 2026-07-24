@@ -24,3 +24,7 @@ class Game:
     def handle_input(self, position):
         if self.state == GameState.Setup:
             self.board.place_ship(position)
+
+    def update(self):
+        if self.state == GameState.Setup and self.board.ready:
+            self.state = GameState.Play
