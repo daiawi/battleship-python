@@ -1,4 +1,4 @@
-from battleship.core.actions import Placement
+from battleship.core.actions import Orientation, Placement
 
 
 class Ship:
@@ -7,14 +7,20 @@ class Ship:
         self.size = size
         self.hits = set()
 
-    def get_extent(self, center: Placement) -> list[tuple[int, int]]:
-        row, col = center.cell
-        start = col - (self.size // 2)
+    def get_extent(self, placement: Placement) -> list[tuple[int, int]]:
+        row, col = placement.cell
+
+        # Subtracting one biases even size ships to the left
+        half = (self.size - 1) // 2
 
         covered_cells = []
 
         for offset in range(self.size):
-            position = (row, start + offset)
+            if placement.orientation == Orientation.HORIZONTAL:
+                position = (row, col - half + offset)
+            else: 
+                position = (row - half + offset, col)
+                
             covered_cells.append(position)
 
         return covered_cells
