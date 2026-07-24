@@ -10,7 +10,7 @@ class Orientation(Enum):
 @dataclass(frozen=True)
 class Placement:
     cell: tuple[int, int]
-    orientation = Orientation.HORIZONTAL
+    orientation: Orientation
 
 
 @dataclass(frozen=True)
