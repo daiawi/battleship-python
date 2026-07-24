@@ -32,9 +32,11 @@ class Game:
     def get_instruction(self):
         return self.instruction
 
-    def handle_input(self, data: Shot | Placement):
-        if self.state == GameState.Setup and isinstance(data, Placement):
-            self.board.place_ship(data)
+    def handle_input(self, location: Shot | Placement):
+        if self.state == GameState.Setup and isinstance(location, Placement):
+            self.board.place_ship(location)
+        elif self.state == GameState.Play and isinstance(location, Shot):
+            self.board.fire_at(location)
 
     def update(self):
         self.update_state()

@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from battleship.core.actions import Orientation, Placement
+from battleship.core.actions import Orientation, Placement, Shot
 
 
 @dataclass(frozen=True)
@@ -13,6 +13,9 @@ class Ship:
         self.name = name
         self.size = size
         self.hits = set()
+
+    def take_hit(self, shot: Shot):
+        self.hits.add(shot.cell)
 
     def get_extent(self, placement: Placement) -> list[tuple[int, int]]:
         row, col = placement.cell

@@ -57,4 +57,7 @@ class ConsoleUI:
         return "\n".join(output)
 
     def ship_to_str(self, ship: Ship, cell: tuple[int, int]) -> str:
-        return "S"
+        if cell in ship.hits:
+            return "X"
+        else:
+            return "S"

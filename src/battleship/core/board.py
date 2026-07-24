@@ -1,4 +1,4 @@
-from battleship.core.actions import Placement
+from battleship.core.actions import Placement, Shot
 from battleship.core.fleet import Fleet
 from battleship.core.ship import Ship
 
@@ -29,6 +29,14 @@ class Board:
             self.ship_locations[cell] = ship
 
         self.fleet.next_ship()
+
+    def fire_at(self, shot: Shot):
+        ship = self.get_cell(shot.cell)
+
+        if not ship:
+            return
+
+        ship.take_hit(shot)
 
     def valid_placement(self, ship: Ship, position: Placement) -> bool:
         for cell in ship.get_extent(position):
