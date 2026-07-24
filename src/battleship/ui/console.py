@@ -16,11 +16,11 @@ class ConsoleUI:
             self.display()
 
             if self.game.is_setting_up():
-                data = self.input_handler.take_placement()
+                action = self.input_handler.take_placement()
             else:
-                data = self.input_handler.take_shot()
+                action = self.input_handler.take_shot()
 
-            self.game.handle_input(data)
+            self.game.handle_input(action)
             self.game.update()
         self.display()
 
