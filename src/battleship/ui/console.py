@@ -47,6 +47,8 @@ class ConsoleUI:
 
                 if ship:
                     line.append(self.ship_to_str(ship, cell))
+                elif cell in board.misses:
+                    line.append("*")
                 else:
                     line.append("~")
 

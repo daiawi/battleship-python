@@ -8,6 +8,7 @@ class Board:
         self.size = size
         self.fleet = Fleet()
         self.ship_locations = {}
+        self.misses = set()
 
     @property
     def ready(self):
@@ -36,6 +37,7 @@ class Board:
         ship = self.get_cell(shot.cell)
 
         if not ship:
+            self.misses.add(shot.cell)
             return
 
         ship.take_hit(shot)
