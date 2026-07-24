@@ -1,5 +1,6 @@
 from enum import Enum, auto
 
+from battleship.core.actions import Placement, Shot
 from battleship.core.board import Board
 
 
@@ -28,9 +29,9 @@ class Game:
     def get_board(self):
         return self.board
 
-    def handle_input(self, position):
-        if self.state == GameState.Setup:
-            self.board.place_ship(position)
+    def handle_input(self, data: Shot | Placement):
+        if self.state == GameState.Setup and isinstance(data, Placement):
+            self.board.place_ship(data)
 
     def update(self):
         if self.state == GameState.Setup and self.board.ready:

@@ -1,3 +1,4 @@
+from battleship.core.actions import Placement
 
 
 class CellInput:
@@ -5,7 +6,7 @@ class CellInput:
         self.letters = letters
         self.numbers = numbers
 
-    def take_input(self) -> tuple[int, int]:    
+    def take_input(self) -> Placement:    
             while True:
                 cell_code = input("Input Cell: ")
     
@@ -27,7 +28,7 @@ class CellInput:
         
         return letter_valid and number_valid
 
-    def parse_input_cell(self, input_cell: str) -> tuple[int, int]:
+    def parse_input_cell(self, input_cell: str) -> Placement:
         cell_code = input_cell.strip()
         
         let_str = cell_code[0].upper()
@@ -36,4 +37,6 @@ class CellInput:
         row = self.letters.index(let_str)
         col = self.numbers.index(num_str)
 
-        return (row, col)
+        placement = Placement(cell=(row,col))
+
+        return placement

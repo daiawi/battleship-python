@@ -32,4 +32,5 @@ def test_validate_input(cell_input_10, cell, expected):
 ]
 )
 def test_parse_input(cell_input_10, cell, expected):
-    assert cell_input_10.parse_input_cell(cell) == expected
+    placement = cell_input_10.parse_input_cell(cell)
+    assert placement.cell == expected

@@ -1,3 +1,4 @@
+from battleship.core.actions import Placement
 from battleship.core.fleet import Fleet
 from battleship.core.ship import Ship
 
@@ -12,7 +13,7 @@ class Board:
     def ready(self):
         return self.fleet.is_fully_deployed()
 
-    def place_ship(self, position: tuple[int, int]):
+    def place_ship(self, position: Placement):
         ship = self.fleet.get_current_ship()
 
         if not self.valid_placement(ship, position):
@@ -23,7 +24,7 @@ class Board:
 
         self.fleet.next_ship()
 
-    def valid_placement(self, ship: Ship, position: tuple[int, int]) -> bool:
+    def valid_placement(self, ship: Ship, position: Placement) -> bool:
         for cell in ship.get_extent(position):
             # Check if cell is occupied
             if self.get_cell(cell):

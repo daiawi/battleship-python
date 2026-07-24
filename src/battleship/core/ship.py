@@ -1,11 +1,14 @@
+from battleship.core.actions import Placement
+
+
 class Ship:
     def __init__(self, name: str, size: int):
         self.name = name
         self.size = size
         self.hits = set()
 
-    def get_extent(self, center: tuple[int, int]) -> list[tuple[int, int]]:
-        row, col = center
+    def get_extent(self, center: Placement) -> list[tuple[int, int]]:
+        row, col = center.cell
         start = col - (self.size // 2)
 
         covered_cells = []
