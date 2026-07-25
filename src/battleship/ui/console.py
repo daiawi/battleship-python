@@ -1,3 +1,4 @@
+from battleship.core.actions import ActionResult
 from battleship.core.board import Board
 from battleship.core.game import Game
 from battleship.core.ship import Ship
@@ -16,15 +17,20 @@ class ConsoleUI:
             if self.game.current_player.is_human:
                 self.display()
 
-                valid_input = False
-                while not valid_input:
+                while True:
                     
                     if self.game.is_setting_up():
                         action = self.input_handler.take_placement()
                     else:
                         action = self.input_handler.take_shot()
 
-                    valid_input = self.game.handle_input(action)
+                    result = self.game.handle_input(action)
+
+                    if result.message:
+                        input(result.message)
+
+                    if result.success:
+                        break
 
             self.game.update()
 

@@ -16,3 +16,9 @@ class Placement:
 @dataclass(frozen=True)
 class Shot:
     cell: tuple[int, int]
+
+
+@dataclass(frozen=True)
+class ActionResult:
+    success: bool
+    message: str | None

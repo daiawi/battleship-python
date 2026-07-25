@@ -1,6 +1,6 @@
 from enum import Enum, auto
 
-from battleship.core.actions import Placement, Shot
+from battleship.core.actions import ActionResult, Placement, Shot
 from battleship.core.player import Player
 
 
@@ -52,12 +52,12 @@ class Game:
     def next_player(self):
         self.player_idx = 1 - self.player_idx
 
-    def handle_input(self, location: Shot | Placement) -> bool:
+    def handle_input(self, location: Shot | Placement) -> ActionResult:
         if self.state == GameState.Setup and isinstance(location, Placement):
             return self.current_player.board.place_ship(location)
         elif self.state == GameState.Play and isinstance(location, Shot):
             return self.opponent.board.fire_at(location)
-        return False
+        return ActionResult(False, "Invalid Action!")
 
     def update(self):
         self.update_state()

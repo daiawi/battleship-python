@@ -1,4 +1,4 @@
-from battleship.core.actions import Placement, Shot
+from battleship.core.actions import ActionResult, Placement, Shot
 from battleship.core.fleet import Fleet
 from battleship.core.ship import Ship
 
@@ -20,27 +20,30 @@ class Board:
         ship = self.fleet.get_current_ship()        
         return f"Place your {ship.name} ({ship.size})"
 
-    def place_ship(self, position: Placement) -> bool:
+    def place_ship(self, position: Placement) -> ActionResult:
         ship = self.fleet.get_current_ship()
 
         if not self.valid_placement(ship, position):
-            return False
+            return ActionResult(False, None)
 
         for cell in ship.get_extent(position):
             self.ship_locations[cell] = ship
 
         self.fleet.next_ship()
-        return True
+        return ActionResult(True, None)
 
     def fire_at(self, shot: Shot):
         ship = self.get_cell(shot.cell)
 
         if not ship:
             self.misses.add(shot.cell)
-            return True
+            return ActionResult(True, "That's a miss!")
 
-        return ship.take_hit(shot)
-
+        if ship.take_hit(shot):
+            return ActionResult(True, "That's a hit!")
+        else:
+            return ActionResult(False, "Already fired at that location!")
+        
     def valid_placement(self, ship: Ship, position: Placement) -> bool:
         for cell in ship.get_extent(position):
             # Check if cell is occupied
