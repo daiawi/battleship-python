@@ -17,6 +17,8 @@ class ConsoleUI:
             if self.game.current_player.is_human:
                 self.display_turn()
                 self.take_turn()
+            else:
+                self.game.take_computer_move()
 
             self.game.update()
 

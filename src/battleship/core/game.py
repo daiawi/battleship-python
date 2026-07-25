@@ -73,3 +73,8 @@ class Game:
                 self.state = GameState.Done
             self.next_player()
 
+    def take_computer_move(self):
+        if self.state == GameState.Play:
+            shot = self.current_player.take_shot()
+            print(shot.cell)
+            self.handle_input(shot)
