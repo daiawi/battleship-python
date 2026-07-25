@@ -21,7 +21,6 @@ class ConsoleUI:
                 action = self.input_handler.take_shot()
 
             self.game.handle_input(action)
-            self.game.update()
         self.display()
 
     def display(self):

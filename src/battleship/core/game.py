@@ -38,6 +38,8 @@ class Game:
         elif self.state == GameState.Play and isinstance(location, Shot):
             self.board.fire_at(location)
 
+        self.update()
+
     def update(self):
         self.update_state()
         self.update_instruction()
