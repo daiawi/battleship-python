@@ -52,11 +52,12 @@ class Game:
     def next_player(self):
         self.player_idx = 1 - self.player_idx
 
-    def handle_input(self, location: Shot | Placement):
+    def handle_input(self, location: Shot | Placement) -> bool:
         if self.state == GameState.Setup and isinstance(location, Placement):
-            self.current_player.board.place_ship(location)
+            return self.current_player.board.place_ship(location)
         elif self.state == GameState.Play and isinstance(location, Shot):
-            self.opponent.board.fire_at(location)
+            return self.opponent.board.fire_at(location)
+        return False
 
     def update(self):
         self.update_state()

@@ -8,7 +8,9 @@ class Ship:
         self.hits = set()
 
     def take_hit(self, shot: Shot):
+        is_new = shot.cell not in self.hits
         self.hits.add(shot.cell)
+        return is_new
 
     def get_extent(self, placement: Placement) -> list[tuple[int, int]]:
         row, col = placement.cell

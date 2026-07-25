@@ -13,15 +13,18 @@ class ConsoleUI:
 
     def run(self):
         while not self.game.is_done():
-            self.display()
-
             if self.game.current_player.is_human:
-                if self.game.is_setting_up():
-                    action = self.input_handler.take_placement()
-                else:
-                    action = self.input_handler.take_shot()
+                self.display()
 
-                self.game.handle_input(action)
+                valid_input = False
+                while not valid_input:
+                    
+                    if self.game.is_setting_up():
+                        action = self.input_handler.take_placement()
+                    else:
+                        action = self.input_handler.take_shot()
+
+                    valid_input = self.game.handle_input(action)
 
             self.game.update()
 

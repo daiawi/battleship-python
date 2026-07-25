@@ -20,25 +20,26 @@ class Board:
         ship = self.fleet.get_current_ship()        
         return f"Place your {ship.name} ({ship.size})"
 
-    def place_ship(self, position: Placement):
+    def place_ship(self, position: Placement) -> bool:
         ship = self.fleet.get_current_ship()
 
         if not self.valid_placement(ship, position):
-            return
+            return False
 
         for cell in ship.get_extent(position):
             self.ship_locations[cell] = ship
 
         self.fleet.next_ship()
+        return True
 
     def fire_at(self, shot: Shot):
         ship = self.get_cell(shot.cell)
 
         if not ship:
             self.misses.add(shot.cell)
-            return
+            return True
 
-        ship.take_hit(shot)
+        return ship.take_hit(shot)
 
     def valid_placement(self, ship: Ship, position: Placement) -> bool:
         for cell in ship.get_extent(position):
