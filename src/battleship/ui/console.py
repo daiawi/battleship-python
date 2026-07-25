@@ -30,14 +30,26 @@ class ConsoleUI:
     def display(self):
         print("\n")
         print(" " * 6 + self.game.current_player.name)
-        print("=" * 22)
-
-        print(self.board_to_str(self.game.current_player.board))
-        print("=" * 22)
+        if self.game.is_setting_up():
+            self.print_current_player_board()
+        else:
+            self.print_current_player_board()
+            input("Press Enter to continue...")
+            self.print_opponent_board()
 
         print(self.game.instruction)
 
-    def board_to_str(self, board: Board) -> str:
+    def print_current_player_board(self):
+        print("=" * 22)
+        print(self.board_to_str(self.game.current_player.board, show_ships=True))
+        print("=" * 22)
+
+    def print_opponent_board(self):
+        print("=" * 22)
+        print(self.board_to_str(self.game.opponent.board, show_ships=False))
+        print("=" * 22)
+
+    def board_to_str(self, board: Board, show_ships: bool = True) -> str:
         output = []
 
         for row in range(board.size):
@@ -48,7 +60,7 @@ class ConsoleUI:
                 ship = board.get_cell(cell)
 
                 if ship:
-                    line.append(self.ship_to_str(ship, cell))
+                    line.append(self.ship_to_str(ship, cell, show_ships))
                 elif cell in board.misses:
                     line.append("*")
                 else:
@@ -62,8 +74,10 @@ class ConsoleUI:
 
         return "\n".join(output)
 
-    def ship_to_str(self, ship: Ship, cell: tuple[int, int]) -> str:
+    def ship_to_str(self, ship: Ship, cell: tuple[int, int], show_ship: bool = True) -> str:
         if cell in ship.hits:
             return "X"
-        else:
+        elif show_ship:
             return "S"
+        else:
+            return "~"
