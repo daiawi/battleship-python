@@ -15,12 +15,12 @@ class ConsoleUI:
     def run(self):
         while not self.game.is_done():
             if self.game.current_player.is_human:
-                self.display()
+                self.display_turn()
                 self.take_turn()
 
             self.game.update()
 
-        self.display()
+        self.display_victory()
 
     def take_turn(self):
         while True:
@@ -40,9 +40,9 @@ class ConsoleUI:
         else:
             return self.input_handler.take_shot()
 
-    def display(self):
+    def display_turn(self):
         print("\n")
-        print(" " * 6 + self.game.current_player.name + "`s turn")
+        print(self.game.current_player.name + "`s turn")
         if self.game.is_setting_up():
             self.print_current_player_board()
         else:
@@ -52,10 +52,14 @@ class ConsoleUI:
 
         print(self.game.instruction)
 
+    def display_victory(self):
+        print("\n")
+        print(self.game.winner + " has won the game!")
+
     def print_current_player_board(self):
-        print("=" * 22)
+        print("=" * (self.game.size + 1) * 2)
         print(self.board_to_str(self.game.current_player.board, show_ships=True))
-        print("=" * 22)
+        print("=" * (self.game.size + 1) * 2)
 
     def print_opponent_board(self):
         print("=" * 22)

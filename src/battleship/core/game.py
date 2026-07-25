@@ -12,11 +12,10 @@ class GameState(Enum):
 
 class Game:
     def __init__(self, player1: Player, player2: Player):
-        self.size = 10
+        self.size = player1.board.size
         self.players = (player1, player2)
         self.player_idx = 0
         self.state = GameState.Setup
-        self.winner = None
 
     @property
     def current_player(self):

@@ -4,7 +4,8 @@ from battleship.ui.console import ConsoleUI
 
 
 def main():
-    game = Game(Player("p1",10), Player("p2", 10))
+    size = 7
+    game = Game(Player("p1", size), Player("p2", size))
     interface = ConsoleUI(game)
     interface.run()
 
