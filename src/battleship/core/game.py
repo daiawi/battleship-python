@@ -1,7 +1,7 @@
 from enum import Enum, auto
 
 from battleship.core.actions import Placement, Shot
-from battleship.core.board import Board
+from battleship.core.player import Player
 
 
 class GameState(Enum):
@@ -11,16 +11,26 @@ class GameState(Enum):
 
 
 class Game:
-    def __init__(self):
+    def __init__(self, player1: Player, player2: Player):
         self.size = 10
-        self.board = Board(self.size)
+        self.players = (player1, player2)
+        self.player_idx = 0
         self.state = GameState.Setup
+        self.winner = None
+
+    @property
+    def current_player(self):
+        return self.players[self.player_idx]
+
+    @property
+    def opponent(self):
+        return self.players[1 - self.player_idx]
 
     @property
     def instruction(self) -> str:
         match self.state:
             case GameState.Setup:
-                instruction = self.board.place_instruction()
+                instruction = self.current_player.board.place_instruction()
 
             case GameState.Play:
                 instruction = "Select a cell to fire upon!"
@@ -39,19 +49,27 @@ class Game:
     def is_done(self):
         return self.state == GameState.Done
 
+    def next_player(self):
+        self.player_idx = 1 - self.player_idx
+
     def handle_input(self, location: Shot | Placement):
         if self.state == GameState.Setup and isinstance(location, Placement):
-            self.board.place_ship(location)
+            self.current_player.board.place_ship(location)
         elif self.state == GameState.Play and isinstance(location, Shot):
-            self.board.fire_at(location)
-
-        self.update()
+            self.opponent.board.fire_at(location)
 
     def update(self):
         self.update_state()
 
     def update_state(self):
-        if self.state == GameState.Setup and self.board.ready:
-            self.state = GameState.Play
-        elif self.state == GameState.Play and self.board.defeated:
-            self.state = GameState.Done
+        if self.state == GameState.Setup and self.current_player.ready:
+            self.next_player()
+            if all(player.ready for player in self.players):
+                self.state = GameState.Play
+
+        elif self.state == GameState.Play:
+            if self.opponent.defeated:
+                self.winner = self.current_player.name
+                self.state = GameState.Done
+            self.next_player()
+

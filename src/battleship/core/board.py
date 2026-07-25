@@ -10,12 +10,10 @@ class Board:
         self.ship_locations = {}
         self.misses = set()
 
-    @property
-    def ready(self):
+    def is_fleet_deployed(self):
         return self.fleet.is_fully_deployed()
 
-    @property
-    def defeated(self):
+    def is_fleet_sunk(self):
         return self.fleet.is_fully_destroyed()
 
     def place_instruction(self) -> str:

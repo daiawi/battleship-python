@@ -15,20 +15,24 @@ class ConsoleUI:
         while not self.game.is_done():
             self.display()
 
-            if self.game.is_setting_up():
-                action = self.input_handler.take_placement()
-            else:
-                action = self.input_handler.take_shot()
+            if self.game.current_player.is_human:
+                if self.game.is_setting_up():
+                    action = self.input_handler.take_placement()
+                else:
+                    action = self.input_handler.take_shot()
 
-            self.game.handle_input(action)
+                self.game.handle_input(action)
+
+            self.game.update()
+
         self.display()
 
     def display(self):
         print("\n")
-        print(" " * 6 + "Battleship")
+        print(" " * 6 + self.game.current_player.name)
         print("=" * 22)
 
-        print(self.board_to_str(self.game.board))
+        print(self.board_to_str(self.game.current_player.board))
         print("=" * 22)
 
         print(self.game.instruction)
