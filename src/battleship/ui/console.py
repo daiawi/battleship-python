@@ -28,11 +28,10 @@ class ConsoleUI:
         print(" " * 6 + "Battleship")
         print("=" * 22)
 
-        board = self.game.get_board()
-        print(self.board_to_str(board))
+        print(self.board_to_str(self.game.board))
         print("=" * 22)
 
-        print(self.game.get_instruction())
+        print(self.game.instruction)
 
     def board_to_str(self, board: Board) -> str:
         output = []
