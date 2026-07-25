@@ -1,3 +1,4 @@
+from battleship.core.actions import Placement, Shot
 from battleship.core.board import Board
 from battleship.core.game import Game
 from battleship.core.ship import Ship
@@ -15,29 +16,33 @@ class ConsoleUI:
         while not self.game.is_done():
             if self.game.current_player.is_human:
                 self.display()
-
-                while True:
-                    
-                    if self.game.is_setting_up():
-                        action = self.input_handler.take_placement()
-                    else:
-                        action = self.input_handler.take_shot()
-
-                    result = self.game.handle_input(action)
-
-                    if result.message:
-                        input(result.message)
-
-                    if result.success:
-                        break
+                self.take_turn()
 
             self.game.update()
 
         self.display()
 
+    def take_turn(self):
+        while True:
+            action = self.get_action()
+            result = self.game.handle_input(action)
+
+            # Show the action result with a pause
+            if result.message:
+                input(result.message)
+
+            if result.success:
+                break
+
+    def get_action(self) -> Placement | Shot:
+        if self.game.is_setting_up():
+            return self.input_handler.take_placement()
+        else:
+            return self.input_handler.take_shot()
+
     def display(self):
         print("\n")
-        print(" " * 6 + self.game.current_player.name)
+        print(" " * 6 + self.game.current_player.name + "`s turn")
         if self.game.is_setting_up():
             self.print_current_player_board()
         else:
