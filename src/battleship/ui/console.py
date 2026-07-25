@@ -1,4 +1,3 @@
-from battleship.core.actions import ActionResult
 from battleship.core.board import Board
 from battleship.core.game import Game
 from battleship.core.ship import Ship
