@@ -5,6 +5,7 @@ class CellInput:
     def __init__(self, letters: list[str], numbers: list[str]) -> None:
         self.letters = letters
         self.numbers = numbers
+        self.directions = ["H", "V"]
 
     def take_placement(self) -> Placement:    
         cell_input = self.prompt_for_cell()
@@ -30,9 +31,16 @@ class CellInput:
     
         return self.parse_input_cell(cell_code) 
 
-    # TODO: Finish Orientation Prompt
     def prompt_for_orientation(self) -> Orientation:
-        return Orientation.HORIZONTAL
+        while True:
+            dir = input("(H/V): ")
+
+            if self.validate_input_dir(dir):
+                break
+
+            print("Sorry try again!")
+
+        return self.parse_input_dir(dir)
 
     def validate_input_cell(self, input_cell: str) -> bool:
         cell_code = input_cell.strip()
@@ -45,6 +53,9 @@ class CellInput:
         
         return letter_valid and number_valid
 
+    def validate_input_dir(self, input_dir: str) -> bool:
+        return input_dir.strip().upper() in ("H", "V")
+
     def parse_input_cell(self, input_cell: str) -> tuple[int, int]:
         cell_code = input_cell.strip()
         
@@ -55,3 +66,12 @@ class CellInput:
         col = self.numbers.index(num_str)
 
         return (row, col)
+
+    def parse_input_dir(self, input_dir: str) -> Orientation:
+        dir = input_dir.strip().upper()
+
+        if dir == "H":
+            return Orientation.HORIZONTAL
+        else:
+            return Orientation.VERTICAL
+
